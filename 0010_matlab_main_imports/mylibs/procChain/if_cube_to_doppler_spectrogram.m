@@ -30,7 +30,7 @@ function [dsm, dsm_gs] = if_cube_to_doppler_spectrogram(rpm, rdr, winL, hop, Nff
     % ---------------------------------------------------------------------
     % create grid:
     % ---------------------------------------------------------------------
-    dsm_dt = rdr.chirp.duration*hop;
+    dsm_dt = (rdr.chirp.duration*size(rdr.frame.tx_seq,2))*hop;
     dsm_gs.t_grid = (0:Ndsm-1)*dsm_dt;
     Ftot = (rdr.frame.Nsamp_doppler)*rdr.cube.doppler_res;
     dtm_df = Ftot/Nfft_dtm;

@@ -16,7 +16,7 @@ classdef CVPoints
     end
     
     methods
-        function obj = CVPoints(Npoints)
+        function obj = CVPoints(Npoints, t_sim)
             Npoints =  min([Npoints,2]);
             
             xyz_p0 = [ 0  0;
@@ -30,9 +30,8 @@ classdef CVPoints
             p0 = xyz_p0(:,1:Npoints);
             v0 = xyz_dot_p0(:,1:Npoints);
             % generate trajectory:
-            glbp = glb_prms();
             dt = 0.01;
-            t_grid = 0:dt:(glbp.t_sim-dt);
+            t_grid = 0:dt:(t_sim-dt);
             t_grid = permute(t_grid,[1,3,2]);
             pm = p0 + v0.*t_grid;
             

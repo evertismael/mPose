@@ -1,13 +1,12 @@
 function rdrp = burst_prms_from_ti_cfg(rdim, rfp, tmp_cfg)
-    glbp = glb_prms();
-
     % --------------------------------------------------------------------
     % RF:
     % --------------------------------------------------------------------
+    rf.c = 2.99e8;
     rf.fc = rfp.startFreq*1e9;
     rf.ADC = 5e6;
     rf.dt = 1/rf.ADC;
-    rf.lambda = glbp.c/rf.fc;
+    rf.lambda = rf.c/rf.fc;
 
     % receivers:
     rf.Nrx = 4; % always 4 antenas

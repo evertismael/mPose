@@ -97,6 +97,11 @@ classdef Radar
             % rotate velocity in radar coords to global:
             vel_glb = batch_mul(obj.G_glb_rdr(1:3,1:3), vel_rdr);
         end
+
+        function vel_rdr = vel_glb2rdr_coords(obj, vel_glb)
+            % rotate velocity in global coords to radar:
+            vel_rdr = batch_mul(obj.G_rdr_glb(1:3,1:3), vel_glb);
+        end
     end
 end
 

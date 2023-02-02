@@ -1,12 +1,13 @@
-function burst = burst_prms(fc, Ntx_enable, tx_seq)
-    glbp = glb_prms();
+function burst = burst_prms(fc, tx_enable, tx_seq)
     % --------------------------------------------------------------------
     % RF:
     % --------------------------------------------------------------------
+    rf.c = 2.99e8;
     rf.fc = fc;
     rf.ADC = 5e6;
     rf.dt = 1/rf.ADC;
-    rf.lambda = glbp.c/rf.fc;
+    rf.lambda = rf.c/rf.fc;
+    
 
     % receivers:
     rf.Nrx = 4; % always 4 antenas
@@ -15,7 +16,8 @@ function burst = burst_prms(fc, Ntx_enable, tx_seq)
     rf.rx_uvw(4,:) = ones(1,4);
 
     % transmitters:
-    rf.Ntx_enable = Ntx_enable;       % number of transmitters [1 0 0]-> only tx1 is on
+    rf.tx_enable = tx_enable;       % number of transmitters [1 0 0]-> only tx1 is on
+    rf.Ntx = 3;
     rf.tx_uvw = (rf.lambda)*[0  -1  -2;
                              0   0   0;
                              0   0.5 0;
@@ -60,15 +62,15 @@ function burst = burst_prms(fc, Ntx_enable, tx_seq)
     
 
     assert(frame.rate >= (frame.duration_active), 'ramp_end too small');
-    assert(all(rf.Ntx_enable(tx_seq)==1),'all tx in seq should be enabled');
+    assert(all(rf.tx_enable(tx_seq)==1),'all tx in seq should be enabled');
     % --------------------------------------------------------------------
     % Radar processing:
     % --------------------------------------------------------------------
     cube.Nfft_range = 128;
     cube.Nfft_doppler = 128;    
 
-    cube.range_res = glbp.c/(2*chirp.B_effective);
-    cube.range_max = (0.9*rf.ADC*glbp.c)/(2*chirp.S);
+    cube.range_res = rf.c/(2*chirp.B_effective);
+    cube.range_max = (0.9*rf.ADC*rf.c)/(2*chirp.S);
     cube.Tcri = size(frame.tx_seq,2)*chirp.duration;
     cube.doppler_res = rf.lambda/(2*frame.Nsamp_doppler*cube.Tcri);
     cube.doppler_max = rf.lambda/(4*cube.Tcri);

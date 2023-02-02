@@ -1,0 +1,211 @@
+,subject,trial,description
+0,10,04,walk
+1,105,62,walkfigure8
+2,12,01,walk
+3,12,02,walk
+4,12,03,walk
+5,120,08,mickey sneaky walk
+6,15,01,walk/wander
+7,15,03,walk/wander
+8,15,09,walk/wander
+9,15,14,walk/wander
+10,16,11,"walk, veer left"
+11,16,12,"walk, veer left"
+12,16,13,"walk, veer right"
+13,16,14,"walk, veer right"
+14,16,15,walk
+15,16,16,walk
+16,16,17,"walk, 90-degree left turn"
+17,16,18,"walk, 90-degree left turn"
+18,16,19,"walk, 90-degree right turn"
+19,16,20,"walk, 90-degree right turn"
+20,16,21,walk
+21,16,22,walk
+22,16,23,"walk, veer left"
+23,16,24,"walk, veer left"
+24,16,25,"walk, veer right"
+25,16,26,"walk, veer right"
+26,16,27,"walk, 90-degree left turn"
+27,16,28,"walk, 90-degree left turn"
+28,16,29,"walk, 90-degree right turn"
+29,16,30,"walk, 90-degree right turn"
+30,16,31,walk
+31,16,32,walk
+32,16,33,"slow walk, stop"
+33,16,34,"slow walk, stop"
+34,16,47,walk
+35,16,58,walk
+36,17,01,"walk with anger, frustration"
+37,17,02,"walk with anger, frustration"
+38,17,05,walk/hobble
+39,02,01,walk
+40,02,02,walk
+41,26,01,walk
+42,27,01,walk
+43,29,01,walk
+44,32,01,walk
+45,32,02,walk
+46,35,01,walk
+47,35,02,walk
+48,35,03,walk
+49,35,04,walk
+50,35,05,walk
+51,35,06,walk
+52,35,07,walk
+53,35,08,walk
+54,35,09,walk
+55,35,10,walk
+56,35,11,walk
+57,35,12,walk
+58,35,13,walk
+59,35,14,walk
+60,35,15,walk
+61,35,16,walk
+62,35,28,walk
+63,35,29,walk
+64,35,30,walk
+65,35,31,walk
+66,35,32,walk
+67,35,33,walk
+68,35,34,walk
+69,36,02,"walk forward, turn around, walk back"
+70,36,03,"walk forward, turn around, walk back"
+71,36,09,"walk forward, turn around, walk back"
+72,37,01,slow walk
+73,38,01,walk
+74,38,02,walk
+75,38,04,"walk around, frequent turns, cyclic walk along a line"
+76,39,01,walk
+77,39,02,walk
+78,39,03,walk
+79,39,04,walk
+80,39,05,walk
+81,39,06,walk
+82,39,07,walk
+83,39,08,walk
+84,39,09,walk
+85,39,10,walk
+86,39,11,"walk forward, turn around, walk back"
+87,39,12,walk
+88,39,13,walk
+89,39,14,walk
+90,40,02,"navigate - walk forward, backward, on a diagonal"
+91,40,03,"navigate - walk forward, backward, on a diagonal"
+92,40,04,"navigate - walk forward, backward, on a diagonal"
+93,40,05,"navigate - walk forward, backward, on a diagonal"
+94,41,04,"navigate - walk forward, backward, on a diagonal"
+95,41,05,"navigate - walk forward, backward, on a diagonal"
+96,41,06,"navigate - walk forward, backward, on a diagonal"
+97,43,01.tvd,walk
+98,45,01,walk
+99,46,01,walk
+100,47,01,"walk forward, turn around, walk back"
+101,49,01,walk
+102,05,01,walk
+103,54,20,"follow path, walk around obstacles"
+104,54,21,"follow path, walk around obstacles"
+105,54,22,"follow path, walk around obstacles"
+106,55,04,walk
+107,56,01,walk around
+108,06,01,walk
+109,69,01,walk forward
+110,69,02,walk forward
+111,69,03,walk forward
+112,69,04,walk forward
+113,69,05,walk forward
+114,69,06,walk and turn (repeated)
+115,69,07,walk and turn (repeated)
+116,69,08,walk and turn (repeated)
+117,69,09,walk and turn (repeated)
+118,69,10,walk and turn (repeated)
+119,69,11,walk and turn (repeated)
+120,69,12,walk and turn both directions (repeated)
+121,69,13,"walk, turn in place (repeated)"
+122,69,14,"walk, turn in place (repeated)"
+123,69,15,"walk, turn in place (repeated)"
+124,69,20,walk forward 90 degree right turn
+125,69,21,walk forward 90 degree right turn
+126,69,22,walk forward 90 degree right turn
+127,69,23,walk forward 90 degree right turn
+128,69,24,walk forward 90 degree left turn
+129,69,25,walk forward 90 degree left turn
+130,69,26,walk forward 90 degree left turn
+131,69,27,walk forward 90 degree left turn
+132,69,28,walk forward 90 degree smooth right turn
+133,69,29,walk forward 90 degree smooth right turn
+134,69,30,walk forward 90 degree smooth right turn
+135,69,31,walk forward 90 degree smooth left turn
+136,69,32,walk forward 90 degree smooth left turn
+137,69,33,walk forward 90 degree smooth left turn
+138,69,34,walk backwards and turn
+139,69,35,walk backwards and turn
+140,69,36,walk backwards and turn
+141,69,37,walk backwards and turn
+142,69,38,walk backwards and turn (repeated)
+143,69,39,"walk backward, turn in place"
+144,69,40,"walk backward, turn in place"
+145,69,41,"walk backward, turn in place"
+146,69,51,walk backwards and turn
+147,69,52,walk backwards and turn
+148,69,53,walk backwards and turn
+149,69,54,walk backwards and turn
+150,69,55,walk backwards and turn
+151,07,01,walk
+152,07,02,walk
+153,07,03,walk
+154,07,04,slow walk
+155,07,05,slow walk
+156,07,06,walk
+157,07,07,walk
+158,07,08,walk
+159,07,09,walk
+160,07,10,walk
+161,07,11,walk
+162,07,12,brisk walk
+163,74,01,stiff walk
+164,74,02,stiff walk
+165,74,20,stiff walk
+166,76,01,walk backwards then attack with a punch
+167,76,02,"walk backwards, feign a few attacks, then attack"
+168,76,09,walking backwards
+169,77,25,careful walk and search
+170,77,26,careful walk and search
+171,77,27,careful walk and search
+172,77,28,careful walk
+173,77,31,silent walk
+174,08,01,walk
+175,08,02,walk
+176,08,03,walk
+177,08,04,slow walk
+178,08,05,walk/stride
+179,08,06,walk
+180,08,07,"walk, exaggerated stride"
+181,08,08,walk
+182,08,09,walk
+183,08,10,walk
+184,08,11,slow walk/stride
+185,81,01,fix hair and walk forward
+186,81,02,walk forward
+187,81,03,walk
+188,81,04,walk at a brisk pace
+189,81,17,walk forward
+190,82,09,confident walk forward
+191,82,10,sad walk forward
+192,82,11,normal walk forward
+193,82,12,happy or fast walk forward
+194,82,13,normal walk forward
+195,82,14,walk forward and slow down
+196,83,36,walk forward turn 90 degrees left walk forward
+197,83,37,walk forward turn 90 degrees right walk forward
+198,83,38,walk forward turn 90 degrees left walk forward
+199,83,39,walk forward turn 90 degrees right walk forward
+200,86,07,"walking, swinging arms, stretching, jumping on one leg, and jumping"
+201,86,11,"walking, stretching, walking and turning"
+202,86,12,"walking, dragging, sweeping, dustpan, wipe window, and wipe mirror"
+203,90,22,straight walk
+204,90,23,straight walk
+205,90,25,fwd ball walk
+206,90,26,fwd ball walk
+207,90,27,bwk ball walk
+208,90,32,moonwalk
+209,91,62,walkfigure8

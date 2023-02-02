@@ -5,8 +5,6 @@ clear all; close all; clc;
 addpath(genpath('../0010_matlab_main_imports'));
 addpath(genpath('./functions'));
 
-glbp = glb_prms();
-
 % folder with mocap data:
 dataset_path = '../0005_cmu_mocap_dataset/';
 
@@ -15,7 +13,7 @@ f_name = 'datasetwalk';
 %f_name = 'datasetwave_signals';
 %f_name = 'datasetwalk_slow';
 
-f_path = '../../0020_Dataset_selector/';
+f_path = '../0020_Dataset_selector/';
 M = readtable([f_path, f_name, '.csv']);
 M(1:3,:)
 
@@ -52,44 +50,57 @@ for batch_idx = 1:10
         trial = pad(num2str(trial),2,'left','0');
         fprintf('%d:  %s , %s, %s \n', idx, subject, trial, description)
         
-        % ---------------------------------------------------------------------
-        % 0010: Visualize the chosen data:
-        % ---------------------------------------------------------------------
+        % -----------------------------------------------------------------
+        % 0010: load mocap dataset:
+        % -----------------------------------------------------------------
         mbody = MocapBody(dataset_path, subject, trial);
         mbody.id = 1;
+        [sctrs, jnts] = mbody.get_scatterers();
 
+        % -----------------------------------------------------------------
+        % generate los measurements:
+        % -----------------------------------------------------------------
+        [opts.floor.mpath_enable, opts.ceiling.mpath_enable] = deal(false, false);
+        [los, ~, ~] = scatterers_to_multipath_info(sctrs, rdr, opts);
+
+
+        % -----------------------------------------------------------------
+        % visualize scene:
+        % -----------------------------------------------------------------
         mid = str2double(subject);
         [x_lim, y_lim, z_lim] = deal([-2, 2], [-3, 3], [0, 2]);
         scnMon = SceneMonitor(mid, x_lim, y_lim, z_lim);
         scnMon = scnMon.draw_radar(rdr);
-        scnMon = scnMon.draw_body(mbody);
-        scnMon = scnMon.draw_bone_ellipsoids(mbody);
+        scnMon = scnMon.draw_jnts(jnts);
+        scnMon = scnMon.draw_sctrs(sctrs);
 
         % animate:
         for fr_idx = 1:10:size(mbody.t_grid,2)
-            scnMon = scnMon.update_body(mbody, fr_idx);
-            scnMon = scnMon.update_bone_ellipsoids(mbody, fr_idx);
+            scnMon = scnMon.update_jnts(jnts, fr_idx);
+            scnMon = scnMon.update_sctrs(sctrs, fr_idx);
             pause(0.01);
         end
         
-        % ---------------------------------------------------------------------
-        % 0020: Generate mPose images:
-        % ---------------------------------------------------------------------
-        [fr_init,fr_end] = deal(1,300);
-        flag_noise = false;
-        [rm, vm, azm, elm, jntsm, bnm_cntr, tm_grid] = simple_measurements(mbody, rdr, flag_noise, fr_init, fr_end);
-
+        % -----------------------------------------------------------------
         % decimate to reduce the data generated:
-        fr_sel_idx = 1:10:size(tm_grid,2);
-        [rm, azm, elm, jntsm, bnm_cntr] = deal(rm(:,fr_sel_idx), ...
-            azm(:,fr_sel_idx), elm(:,fr_sel_idx), jntsm(:,:,fr_sel_idx),bnm_cntr(:,:,fr_sel_idx));
+        % -----------------------------------------------------------------
+        fr_sel_idx = 1:10:size(los.t_grid,2);
+        los_dec.rm = los.rm(:,fr_sel_idx);
+        los_dec.azm = los.azm(:,fr_sel_idx);
+        los_dec.elm = los.elm(:,fr_sel_idx);
+        los_dec.vm = los.vm(:,fr_sel_idx);
+        los_dec.t_grid = los.t_grid(:,fr_sel_idx);
         
+        jnts_dec.pos = jnts.pos(:,:,fr_sel_idx);
+        jnts_dec.t_grid = jnts.t_grid(fr_sel_idx);
+        jnts_dec.id = jnts.id;
+
         '';
         figure;
-        subplot(2,2,1); plot(rm.');
-        subplot(2,2,2); plot(vm.');
-        subplot(2,2,3); plot(azm.');
-        subplot(2,2,4); plot(elm.');
+        subplot(2,2,1); plot(los_dec.t_grid, los_dec.rm.'); title('Range vs time');
+        subplot(2,2,2); plot(los_dec.t_grid, los_dec.vm.'); title('velocity vs time');
+        subplot(2,2,3); plot(los_dec.t_grid, los_dec.azm.'); title('azimuth vs time');
+        subplot(2,2,4); plot(los_dec.t_grid, los_dec.elm.'); title('elev vs time');
         '';
         
         % -----------------------------------------------------------------
@@ -97,7 +108,7 @@ for batch_idx = 1:10
         % -----------------------------------------------------------------
         show_images = true;
         [rm_azm, rm_elevm, roi_grids, torso_xyz] = range_angles_images(...
-                                        rm, azm, elm, jntsm, rdr, show_images);
+                                        los_dec.rm, los_dec.azm, los_dec.elm, jnts_dec.pos, rdr, show_images);
      
         n_tpls = n_tpls + size(fr_sel_idx,2);  
         % -----------------------------------------------------------------
@@ -106,7 +117,7 @@ for batch_idx = 1:10
         rm_azm_all = cat(3,rm_azm_all,rm_azm);
         rm_elevm_all = cat(3,rm_elevm_all,rm_elevm);
         roi_grids_all = cat(4,roi_grids_all,roi_grids);
-        jnts_xyz_all = cat(3,jnts_xyz_all,jntsm);
+        jnts_xyz_all = cat(3,jnts_xyz_all,jnts_dec.pos);
         torso_xyz_all = cat(2,torso_xyz_all,torso_xyz);
         '';
     end

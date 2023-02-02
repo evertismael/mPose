@@ -9,7 +9,7 @@ classdef MocapBody
         w_size = 20;
         XYZ_FACTOR = (1/0.45)*2.54/100.0; % conversion from inches and other factors;
 
-        Nfrm
+        Nfr
         t_grid
         
         % skeleton:
@@ -66,8 +66,8 @@ classdef MocapBody
             end
             
             % output:
-            obj.Nfrm = size(channels,1);
-            obj.t_grid = (0:(obj.Nfrm-1))*(1/120); 
+            obj.Nfr = size(channels,1);
+            obj.t_grid = (0:(obj.Nfr-1))*(1/120); 
             obj.skel = skel;
             obj.channels = channels.';   
             
@@ -111,6 +111,46 @@ classdef MocapBody
             obj.pm = cat(2,obj.pm,p0_mat);
             obj.abc = cat(2,obj.abc,abc0_mat);
             obj.Gg_elps = cat(3,obj.Gg_elps,Gg0_skel_mat);
+            '';
+        end
+        
+        function [sctrs, jnts] = get_scatterers(obj)
+            % -------------------------------------------------------------
+            % Obtain scatter information: pos, abc, Gg_elip
+            % -------------------------------------------------------------
+            jnts.pos = zeros(3,obj.Njnt, obj.Nfr);
+            sctrs.pos = zeros(3,obj.Nscttr, obj.Nfr);
+            sctrs.abc = zeros(3,obj.Nscttr, obj.Nfr);
+            sctrs.Gg_elps = zeros(4,4,obj.Nscttr, obj.Nfr);
+            sctrs.Gg_skel = zeros(4,4,obj.Njnt, obj.Nfr);
+            for fr_idx = 1:obj.Nfr
+                [jnts.pos(:,:,fr_idx), ~] = obj.get_joints_by_frame(fr_idx);
+                [pm, abc, Ggcorr_elps, Ggcorr_skel_jnt] = obj.get_bones_by_frame(fr_idx);
+                sctrs.pos(:,:,fr_idx) = pm(1:3,:,:);
+                sctrs.abc(:,:,fr_idx) = abc;
+                sctrs.Gg_elps(:,:,:,fr_idx) = Ggcorr_elps;
+                sctrs.Gg_skel(:,:,:,fr_idx) = Ggcorr_skel_jnt;
+            end
+            
+            % -------------------------------------------------------------
+            % Obtain velocity of scatterers: interpolate and derivate
+            % -------------------------------------------------------------
+            sctrs.vel = zeros(3,obj.Nscttr, obj.Nfr);
+            for sctr_idx = 1:obj.Nscttr
+                pm_i = sctrs.pos(:,sctr_idx,:);
+                ppf=spline(obj.t_grid, pm_i);
+                ppdf = ppf;
+                ppdf.order=ppdf.order-1;    %  derivate the exponent
+                ppdf.coefs=ppdf.coefs(:,1:end-1).*(ppdf.order:-1:1); % (x^2)' = 2*x
+                vm_i = ppval(ppdf,obj.t_grid);
+                sctrs.vel(:,sctr_idx,:) = vm_i;
+            end
+            % addint time and id:
+            jnts.id = obj.id;
+            jnts.t_grid = obj.t_grid;
+            
+            sctrs.id = obj.id;
+            sctrs.t_grid = obj.t_grid;
             '';
         end
     end
